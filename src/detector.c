@@ -1611,6 +1611,8 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
         //image im;
         //image sized = load_image_resize(input, net.w, net.h, net.c, &im);
         image im = load_image(input, 0, 0, net.c);
+        float mean_sacle[4] = {0.f, 0.f, 0.f, 1/255.f};
+        preprocess_img(im, mean_sacle);
         printf("load_image done\n");
         image sized;
         if(letter_box) sized = letterbox_image(im, net.w, net.h);

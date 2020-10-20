@@ -482,9 +482,9 @@ int main(int argc, char **argv)
 
 //   show_opencv_info();
 //    argv[1] = "detector";
-    // run_detector(argc, argv);
+    run_detector(argc, argv);
 
-    predict_classifier("imagenet1k.data", "mobilenetv2.cfg", "mobilenetv2.weights", "cat.jpg", 5);
+    // predict_classifier("imagenet1k.data", "mobilenetv2.cfg", "mobilenetv2.weights", "cat.jpg", 5);
 #if 0
     if (0 == strcmp(argv[1], "average")){
         average(argc, argv);
