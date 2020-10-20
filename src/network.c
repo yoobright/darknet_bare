@@ -275,6 +275,7 @@ void forward_network(network net, network_state state)
         printf("layer %d\n", i);
         l.forward(l, state);
         printf("layer %d - Predicted.\n", i);
+        printf("============================\n");
         state.input = l.output;
 
         /*

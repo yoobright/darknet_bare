@@ -333,6 +333,7 @@ static int entry_index(layer l, int batch, int location, int entry)
 
 void forward_yolo_layer(const layer l, network_state state)
 {
+    printf("forward_yolo_layer\n");
     int i, j, b, t, n;
     memcpy(l.output, state.input, l.outputs*l.batch * sizeof(float));
 

@@ -1076,6 +1076,8 @@ void forward_convolutional_layer(convolutional_layer l, network_state state)
     int out_w = convolutional_out_width(l);
     int i, j;
 
+    printf("forward_convolutional_layer\n");
+
     fill_cpu(l.outputs*l.batch, 0, l.output, 1);
 
     if (l.xnor && (!l.align_bit_weights || state.train)) {
@@ -1228,6 +1230,7 @@ void forward_convolutional_layer(convolutional_layer l, network_state state)
 
             }
             else {
+                // printf("normel im2col\n");
                 //printf(" l.index = %d - FP32 \n", l.index);
                 float *im = state.input + (i*l.groups + j)*(l.c / l.groups)*l.h*l.w;
                 if (l.size == 1) {

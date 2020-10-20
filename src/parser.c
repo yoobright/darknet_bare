@@ -45,13 +45,14 @@ typedef struct{
     list *options;
 }section;
 
-struct my_buffer;
-typedef struct my_buffer my_buffer;
+
 typedef struct my_buffer{
     char *data;
     long offset;
     long size;
 } my_buffer;
+
+typedef struct my_buffer my_buffer;
 
 list *read_cfg(char *filename);
 
@@ -2048,7 +2049,7 @@ my_buffer load_all_data(char *filename)
     fclose(fp);
     buffer.offset = 0;
     buffer.size = filelen;
-    printf("filelen = %ld\n", filelen);
+    printf("load_all_data done\n");
     return buffer;
 }
 
@@ -2153,13 +2154,13 @@ void load_weights_buffer_upto(network *net, my_buffer* buffer, int cutoff)
             load_buffer_convolutional_weights(l, buffer);
         }
         if (l.type == SHORTCUT && l.nweights > 0) {
-            // load_shortcut_weights(l, &buffer);
+            // load_shortcut_weights(l, buffer);
         }
         if(l.type == CONNECTED){
-            // load_connected_weights(l, &buffer, transpose);
+            // load_connected_weights(l, buffer, transpose);
         }
         if(l.type == BATCHNORM){
-            // load_batchnorm_weights(l, &buffer);
+            // load_batchnorm_weights(l, buffer);
         } 
     }
 }

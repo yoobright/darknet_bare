@@ -79,6 +79,7 @@ void resize_route_layer(route_layer *l, network *net)
 
 void forward_route_layer(const route_layer l, network_state state)
 {
+    printf("forward_route_layer\n");
     int i, j;
     int offset = 0;
     for(i = 0; i < l.n; ++i){
