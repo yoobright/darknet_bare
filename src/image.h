@@ -100,6 +100,8 @@ image get_image_layer(image m, int l);
 
 //LIB_API void free_image(image m);
 void test_resize(char *filename);
+
+void preporecess_img(image im, float* mean_scale);
 #ifdef __cplusplus
 }
 #endif

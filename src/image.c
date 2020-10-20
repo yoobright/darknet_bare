@@ -1771,3 +1771,31 @@ LIB_API void copy_image_from_bytes(image im, char *pdata)
         }
     }
 }
+
+
+void preprocess_img(image im, float* mean_scale)
+{
+    printf("im.w %d, im.h %d, im.c %d\n", im.w, im.h, im.c);
+    int w = im.w;
+    int h = im.h;
+    int c = im.c;
+    
+    int i,j,k;
+    //For MobileNet v2
+	for(k = 0; k < c; ++k){
+        for(j = 0; j < h; ++j){
+            for(i = 0; i < w; ++i){
+                int dst_index = i + w*j + w*h*k;
+				if (k==0) {					
+					im.data[dst_index] = ((float)im.data[dst_index]-mean_scale[0])*mean_scale[3];
+				}
+				if (k==1) {
+					im.data[dst_index] = ((float)im.data[dst_index]-mean_scale[1])*mean_scale[3];
+				}
+				if (k==2) {
+					im.data[dst_index] = ((float)im.data[dst_index]-mean_scale[2])*mean_scale[3];
+				}
+            }
+        }
+    }
+}

@@ -818,33 +818,6 @@ void try_classifier(char *datacfg, char *cfgfile, char *weightfile, char *filena
 
 #endif
 
-void preporecess_img(image im)
-{
-    printf("im.w %d, im.h %d, im.c %d\n", im.w, im.h, im.c);
-    int w = im.w;
-    int h = im.h;
-    int c = im.c;
-    
-    int i,j,k;
-    //For MobileNet v2
-	for(k = 0; k < c; ++k){
-        for(j = 0; j < h; ++j){
-            for(i = 0; i < w; ++i){
-                int dst_index = i + w*j + w*h*k;
-				if (k==0) {					
-					im.data[dst_index] = ((float)im.data[dst_index]-123.68)*0.017;
-				}
-				if (k==1) {
-					im.data[dst_index] = ((float)im.data[dst_index]-116.78)*0.017;
-				}
-				if (k==2) {
-					im.data[dst_index] = ((float)im.data[dst_index]-103.94)*0.017;
-				}
-            }
-        }
-    }
-}
-
 void predict_classifier(char *datacfg, char *cfgfile, char *weightfile, char *filename, int top)
 {
     network net = parse_network_cfg_custom(cfgfile, 1, 0);
@@ -890,7 +863,8 @@ void predict_classifier(char *datacfg, char *cfgfile, char *weightfile, char *fi
             strtok(input, "\n");
         }
         image im = load_image_color(input, 0, 0);
-        preporecess_img(im);
+        float mean_sacle[4] = { 123.68f, 116.78f, 103.94f, 0.017f };
+        preprocess_img(im, mean_sacle);
         rgbgr_image(im);
         // image resized = resize_min(im, net.w);
         // image r = crop_image(resized, (resized.w - net.w)/2, (resized.h - net.h)/2, net.w, net.h);
